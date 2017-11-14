@@ -1,0 +1,82 @@
+#dropdown-menu {
+	position: relative;
+    display: inline-block;
+}
+
+#dropdown-btn {
+	background-color: #0080ff;
+	color: white;
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#dropdown-menu:hover #dropdown-btn {
+	background-color: #3299ff;
+}
+
+#dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #e5f2ff;
+	min-width: 160px;
+	z-index: 1;
+}
+
+#dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+#dropdown-content a:hover {
+	background-color: #ced9e5;
+}
+
+#forecast {
+	background-color: #3F51B5;
+	
+}
+
+#forecast p {
+	color: white;
+	padding: 5px;
+}
+
+input + span {
+  padding-right: 30px;
+}
+
+input:invalid+span:after {
+  position: absolute; content: '✖';
+  padding-left: 5px;
+  padding-top: 5px;
+  color: #8b0000;
+}
+
+input:valid+span:after {
+  position: absolute;
+  content: '✓';
+  padding-left: 5px;
+  padding-top: 5px;
+  color: #009000;
+}
+
+.form-control {
+	display: inline;
+	width: 80%;
+}
+
+#exchange-rate {
+	background-color: #939393;
+	margin-top: 10px;
+	border-radius: 4px;
+}
+
+#exchange-rate p {
+	color: white;
+	padding: 5px;
+}

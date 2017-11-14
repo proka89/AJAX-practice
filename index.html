@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <link href="css/ajax.css" rel="stylesheet" type="text/css">
+	<script src="js/ajax.js"></script> 
+  </head>
+  <body>
+  	<div class="container">
+  		<div class="row">
+  			<div class="col-sm-6">
+  				<div id="dropdown-menu">
+  					<button id="dropdown-btn">Menu</button>
+  					<div id="dropdown-content">
+  						<a href="#">Link 1</a>
+    					<a href="#">Link 2</a>
+    					<a href="#">Link 3</a>
+  					</div>
+  				</div>
+  			</div>
+  			<div class="col-sm-6">
+          <form id="my-form" name="main-form">
+    				<div class="form-group">
+    					<label for="characters">Enter 16 characters</label>
+    					<input type="text" class="form-control" maxlength="16" id="characters" required>
+  				  </div>
+  				  <div class="form-group">
+    					<label for="city-name">Enter the name of a city</label>
+    					<input type="text" class="form-control" id="city-name" required>
+  				  </div>
+  				  <div id="forecast">
+  					
+  				  </div>
+  				  <div class="form-group">
+    					<label for="phone-number">Enter the phone number (+XXX(XX)XXX-XX-XX)</label>
+    					<input type="tel" class="form-control" id="phone-number" pattern="[+][0-9]{3}[(][0-9]{2}[)][0-9]{3}[-][0-9]{2}[-][0-9]{2}" required>
+    					<span class="validity"></span>
+  				  </div>
+            <div class="buttons">
+              <button class="btn btn-danger" type="reset" id="resetbtn">Reset</button>
+              <button type="submit" class="btn btn-default" id="submitbtn" value="Submit">Submit</button>
+            </div>
+            <div id="exchange-rate">
+              
+            </div>
+          </form>
+  			</div>
+  		</div>	
+  	</div>
+  </body>
+</html>
