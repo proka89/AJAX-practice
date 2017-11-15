@@ -23,14 +23,14 @@
   				</div>
   			</div>
   			<div class="col-sm-6">
-          <form id="my-form" name="main-form">
+          <form id="my-form" name="main-form" onsubmit="return false">
     				<div class="form-group">
     					<label for="characters">Enter 16 characters</label>
-    					<input type="text" class="form-control" maxlength="16" id="characters" required>
+    					<input type="text" class="form-control" maxlength="16" id="characters" required="">
   				  </div>
   				  <div class="form-group">
     					<label for="city-name">Enter the name of a city</label>
-    					<input type="text" class="form-control" id="city-name" required>
+    					<input type="text" class="form-control" id="city-name" required="">
   				  </div>
   				  <div id="forecast">
   					
@@ -42,7 +42,7 @@
   				  </div>
             <div class="buttons">
               <button class="btn btn-danger" type="reset" id="resetbtn">Reset</button>
-              <button type="submit" class="btn btn-default" id="submitbtn" value="Submit">Submit</button>
+              <button type="submit" class="btn btn-default" id="submitbtn">Submit</button>
             </div>
             <div id="exchange-rate">
               

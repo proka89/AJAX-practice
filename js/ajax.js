@@ -47,11 +47,6 @@ function checkLength() {
 function getForecast() {
 	cityNameValue = cityName.value;
 	var forecastRequest = new XMLHttpRequest();
-	forecastRequest.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 404) {
-            inputAreaCharacters.focus();
-       }
-    };
 	forecastRequest.open('GET', 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityNameValue + '&units=metric&appid=8894d217890a53909512a84e974f3f2a');
 	forecastRequest.onload = function() {
 		var forecastData = JSON.parse(forecastRequest.responseText);
@@ -91,6 +86,7 @@ function validatePhoneNumber () {
 
 function resetAllFields () {
 	document.getElementById("my-form").reset();
+	inputAreaCharacters.focus();
 	phoneNumber.disabled = false;
 	forecastContainer.innerHTML = "";
 	exchangeRateContainer.innerHTML = "";
