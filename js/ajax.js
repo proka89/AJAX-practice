@@ -1,10 +1,12 @@
 var inputAreaCharacters;
+var cityName;
 var cityNameValue;
 var forecastContainer;
 var phoneNumber;
 var exchangeRateContainer;
 var submitBtn;
 var phoneNumberRegex;
+var flag = false;
 
 document.addEventListener('DOMContentLoaded', function(){ init(); });
 
@@ -16,13 +18,13 @@ function init() {
 	forecastContainer = document.getElementById("forecast");
 	exchangeRateContainer = document.getElementById("exchange-rate");
 	submitBtn = document.getElementById("submitbtn");
+	submitBtn.disabled = true;
 	document.getElementById("dropdown-btn").onclick = function() {toggleMenu()};
-	inputAreaCharacters.onblur = function() {checkLength()};
-	cityName.onblur = function() {getForecast()};
-	phoneNumber.onblur = function() {validatePhoneNumber()};
+	inputAreaCharacters.onblur = function() {checkLength();};
+	cityName.onblur = function() {getForecast();};
+	phoneNumber.onblur = function() {validatePhoneNumber(); validateAll()};
 	document.getElementById("resetbtn").onclick = function() {resetAllFields()};
 	submitBtn.onclick = function() {getExchangeRate()};
-
 }
 
 function toggleMenu() {
@@ -36,23 +38,28 @@ function toggleMenu() {
 
 function checkLength() {
 	if (inputAreaCharacters.value.length < 16) {
-		inputAreaCharacters.focus();
-		canSubmit = false;	
-	} else {
-		canSubmit = true;
-	}
+		inputAreaCharacters.focus();	
+	} 
 }
 
 
 function getForecast() {
 	cityNameValue = cityName.value;
 	var forecastRequest = new XMLHttpRequest();
+	forecastRequest.onreadystatechange = function() {
+    	if (this.readyState == 4 && this.status == 200) {
+     		var forecastData = JSON.parse(forecastRequest.responseText);
+			renderForecastHTML(forecastData);
+			flag = true;
+    	} 
+    	if (this.readyState == 4 && this.status == 404) {
+    		forecastContainer.innerHTML = "";
+    		forecastContainer.insertAdjacentHTML('beforeend', "<p>No such city!</p>");
+    		cityName.focus();
+    		flag = false;
+    	}
+  	};
 	forecastRequest.open('GET', 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityNameValue + '&units=metric&appid=8894d217890a53909512a84e974f3f2a');
-	forecastRequest.onload = function() {
-		var forecastData = JSON.parse(forecastRequest.responseText);
-		renderForecastHTML(forecastData);
-	};
-
 	forecastRequest.send();
 }
 
@@ -79,14 +86,14 @@ function validatePhoneNumber () {
 	if (phoneNumber.value.match(phoneNumberRegex)) {
 		phoneNumber.disabled = true;
 	} else {
-		phoneNumber.focus();
+		// phoneNumber.focus();
 	}
 
 }
 
 function resetAllFields () {
 	document.getElementById("my-form").reset();
-	inputAreaCharacters.focus();
+	document.activeElement.blur();
 	phoneNumber.disabled = false;
 	forecastContainer.innerHTML = "";
 	exchangeRateContainer.innerHTML = "";
@@ -98,7 +105,6 @@ function getExchangeRate () {
 	exchangeRateRequest.onload = function() {
 		var exchangeRateData = JSON.parse(exchangeRateRequest.responseText);
 		renderExchangeRateHTML(exchangeRateData);
-		console.log(exchangeRateData);
 	};
 
 	exchangeRateRequest.send();
@@ -115,4 +121,31 @@ function renderExchangeRateHTML (data) {
 	exchangeRateHTML += "<p>Valute: " + sourceValute + "</p>" + "<p>Australian Dollar: " + australianDollar + "</p>" + "<p>Swiss Franc: " + swissFranc + "</p>" + "<p>Euro: " + euro + "</p>" + "<p>Serbian Dinar: " + dinar + "</p>";
 	exchangeRateContainer.innerHTML = "";
 	exchangeRateContainer.insertAdjacentHTML('beforeend', exchangeRateHTML);
+}
+
+function validateAll () {
+	var canSubmit1 = false;
+	var canSubmit2 = false;
+	var canSubmit3 = false;
+	if (inputAreaCharacters.value.length == 16) {
+		canSubmit1 = true;
+	} else {
+		canSubmit1 = false;
+	}
+	if (flag) {
+		canSubmit2 = true;
+	} else {
+		canSubmit2 = false;
+	}
+	if (phoneNumber.value.match(phoneNumberRegex)) {
+		canSubmit3 = true;
+	} else {
+		canSubmit3 = false;
+	}
+
+	if(canSubmit1 && canSubmit2 && canSubmit3) {
+		submitBtn.disabled = false;
+	} else {
+		submitBtn.disabled = true;
+	}
 }
