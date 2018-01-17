@@ -86,7 +86,7 @@ function validatePhoneNumber () {
 	if (phoneNumber.value.match(phoneNumberRegex)) {
 		phoneNumber.disabled = true;
 	} else {
-		// phoneNumber.focus();
+		phoneNumber.focus();
 	}
 
 }
@@ -104,6 +104,7 @@ function getExchangeRate () {
 	exchangeRateRequest.open('GET', 'http://apilayer.net/api/live?access_key=5ca928f875a80cd7c342d31512053b93&currencies=AUD,CHF,EUR,GBP,RSD')
 	exchangeRateRequest.onload = function() {
 		var exchangeRateData = JSON.parse(exchangeRateRequest.responseText);
+		// console.log(exchangeRateData);
 		renderExchangeRateHTML(exchangeRateData);
 	};
 
